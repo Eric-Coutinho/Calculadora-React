@@ -1,13 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { StyleSheet, Text, View, Image, TextInput, Switch, TouchableOpacity } from 'react-native';
-
+import { UtilsContext } from './context';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 export default function Login(props) {
-  const [inicio, setInicio] = useState(false)
-  const Stack = createStackNavigator()
+  const {utils, setUtils} = useContext(UtilsContext);
+  const [email, setEmail] = useState("");
+
+  function goToUser(){
+    setUtils({...utils, email: email})
+    props.navigation.navigate("User")
+  }
 
   return (
     <View style={styles.container}>
@@ -22,6 +27,7 @@ export default function Login(props) {
           }}>
           Email:</Text>
         <TextInput
+          onChangeText = {null}
           singleline
           maxLength={45}
           style={styles.textAreaEmail}
@@ -44,7 +50,7 @@ export default function Login(props) {
         <View style={styles.botao}>
           <TouchableOpacity
             style={styles.touch1}
-            onPress={() => props.navigation.navigate("User")}
+            onPress={() => goToUser()}
             >
             <Text>Login</Text>
           </TouchableOpacity>

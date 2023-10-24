@@ -6,8 +6,6 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 export default function User(props) {
-  const [inicio, setInicio] = useState(false)
-  const Stack = createStackNavigator()
 
   return (
     <View style={styles.container}>

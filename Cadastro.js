@@ -1,14 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { StyleSheet, Text, View, Image, TextInput, Switch, TouchableOpacity } from 'react-native';
-
+import { UtilsContext } from './context';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 export default function Cadastro(props) {
-  const [inicio, setInicio] = useState(false)
-  const Stack = createStackNavigator()
+  const {utils, setUtils} = useContext(UtilsContext);
   
+  const [inicio, setInicio] = useState(false)
+  const [nome, setNome] = useState("")
+  const [idade, setIdade] = useState("")
+  const [sexo, setSexo] = useState("")
+  const [email, setEmail] = useState("")
+  const [senha, setSenha] = useState("")
+  const [notfy, setNotfy] = useState(false)
+
+  function goToUser(){
+    setUtils({...utils, nome: nome, idade: idade, sexo: sexo, email: email, senha: senha, notfy: notfy})
+    props.navigation.navigate("User")
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -30,6 +42,7 @@ export default function Cadastro(props) {
           singleline
           maxLength={45}
           style={styles.textArea}
+          onChangeText = {text => setNome(text)}
         />
         <View style={styles.Segunda}>
           <View style={styles.formata}>
@@ -43,6 +56,7 @@ export default function Cadastro(props) {
               singleline
               maxLength={45}
               style={styles.textAreaIdade}
+              onChangeText = {text => setIdade(text)}
             />
           </View>
 
@@ -58,6 +72,7 @@ export default function Cadastro(props) {
               singleline
               maxLength={45}
               style={styles.textAreaSexo}
+              onChangeText = {text => setSexo(text)}
             />
           </View>
         </View>
@@ -72,6 +87,7 @@ export default function Cadastro(props) {
           singleline
           maxLength={45}
           style={styles.textAreaEmail}
+          onChangeText = {text => setEmail(text)}
         />
 
         <Text
@@ -86,6 +102,7 @@ export default function Cadastro(props) {
           singleline
           maxLength={45}
           style={styles.textAreaEmail}
+          onChangeText = {text => setSenha(text)}
         />
 
         <Text
@@ -119,7 +136,7 @@ export default function Cadastro(props) {
 
         <TouchableOpacity
           style={styles.touch1}
-          onPress={() => props.navigation.navigate("Login")}
+          onPress={() => goToUser()}
         >
           <Text>Cadastrar</Text>
         </TouchableOpacity>
