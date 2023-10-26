@@ -1,9 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import { useContext, useState } from "react"
 import { StyleSheet, Text, View, Image, TextInput, Switch, TouchableOpacity } from 'react-native';
 import { UtilsContext } from './context';
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
 
 export default function Login(props) {
   const {utils, setUtils} = useContext(UtilsContext);
@@ -27,10 +24,10 @@ export default function Login(props) {
           }}>
           Email:</Text>
         <TextInput
-          onChangeText = {null}
           singleline
           maxLength={45}
           style={styles.textAreaEmail}
+          onChangeText = {text => setEmail(text)}
         />
 
         <Text

@@ -1,14 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState, useContext } from "react"
+import { useState, useContext } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Switch, TouchableOpacity } from 'react-native';
 import { UtilsContext } from './context';
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
 
 export default function Cadastro(props) {
   const {utils, setUtils} = useContext(UtilsContext);
-  
-  const [inicio, setInicio] = useState(false)
   const [nome, setNome] = useState("")
   const [idade, setIdade] = useState("")
   const [sexo, setSexo] = useState("")
@@ -127,10 +123,10 @@ export default function Cadastro(props) {
           }}>
           Deseja receber notificações?</Text>
         <Switch
-          onValueChange={() => setInicio(!inicio)}
-          value={inicio}
+          onValueChange={() => setNotfy(!notfy)}
+          value={notfy}
           trackColor={{ false: "#767577", true: "#81b0ff" }}
-          thumbColor={inicio ? "#f5dd4b" : "#f4f3f4"}
+          thumbColor={notfy ? "#f5dd4b" : "#f4f3f4"}
           activeThumbColor={"#f4f3f4"}
         />
 

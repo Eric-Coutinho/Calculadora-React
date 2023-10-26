@@ -1,13 +1,23 @@
-import { useState } from "react"
-import { StyleSheet, Text, View, Image, TextInput, Switch, TouchableOpacity } from 'react-native';
+import { useContext, useState } from "react"
+import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { UtilsContext } from "./context";
 
 export default function Histórico(props) {
+  const { utils, setUtils } = useContext(UtilsContext);
+  const [calc, setCalc] = useState([]);
+
+  const addCalc = () => {
+    setCalc([...calc, utils.num])
+  }
+
+  addCalc();
 
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Histórico:</Text>
       <View style={styles.card}>
-        <Text style={styles.texto}>10 + 1 = 11</Text>
+        {utils.historicText.map(item =>
+          <Text>{item}</Text>)}
       </View>
     </View>
   );

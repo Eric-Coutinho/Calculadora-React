@@ -1,20 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { StyleSheet, Text, View, Image, TextInput, Switch, TouchableOpacity } from 'react-native';
-
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import { UtilsContext } from './context';
 
 export default function User(props) {
+  const {utils, setUtils} = useContext(UtilsContext);
 
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Usuarios </Text>
       <View style={styles.card}>
-        <Text>Nome:</Text>
-        <Text>Idade:</Text>
-        <Text>Sexo:</Text>
-        <Text>Recebe Notificação:</Text>
+        <Text>Nome: {utils.nome}</Text>
+        <Text>Idade: {utils.idade}</Text>
+        <Text>Sexo: {utils.sexo}</Text>
+        <Text>Recebe Notificação: {utils.notfy == false ? "Não" : "Sim"}</Text>
       </View>
     </View>
   );
