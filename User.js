@@ -1,24 +1,59 @@
-import { StatusBar } from 'expo-status-bar';
 import { useState, useContext } from "react"
-import { StyleSheet, Text, View, Image, TextInput, Switch, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
 import { UtilsContext } from './context';
 
-export default function User(props) {
-  const {utils, setUtils} = useContext(UtilsContext);
+function UserBox(props) {
+  const { utils, setUtils } = useContext(UtilsContext);
+
+  function deleteUser() {
+    console.log(utils.nome)
+    setUtils({ ...props.utils, nome: null, idade: null, sexo: null, email: null, senha: null, notfy: null })
+  }
+  function showUser() {
+    console.log(utils.nome)
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Usuarios </Text>
       <View style={styles.card}>
-        <Text>Nome: {utils.nome}</Text>
-        <Text>Idade: {utils.idade}</Text>
-        <Text>Sexo: {utils.sexo}</Text>
-        <Text>Recebe Notificação: {utils.notfy == false ? "Não" : "Sim"}</Text>
+        <View style={styles.text}>
+          <Text>Nome: {props.utils.nome}</Text>
+          <Text>Idade: {props.utils.idade}</Text>
+          <Text>Sexo: {props.utils.sexo}</Text>
+          <Text>Recebe Notificação: {props.utils.notfy == false ? "Não" : "Sim"}</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.touch1}
+          onPress={() => deleteUser()}
+        >
+          <Text>Deletar Usuário</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.touch1}
+          onPress={() => showUser()}
+        >
+          <Text>Mostrar Usuário</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 }
 
+export default function User(props) {
+  const { utils, setUtils } = useContext(UtilsContext);
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={utils}
+        renderItem={({ item }) => <UserBox utils={utils}></UserBox>}
+        keyExtractor={(item) => item}
+      />
+    </View>
+
+  );
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -37,9 +72,22 @@ const styles = StyleSheet.create({
     paddingVertical: '20px',
     paddingHorizontal: '10px',
     display: 'flex',
-    alignItems: 'flex-start',
-    width: '50vw',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: '100%',
     marginTop: '40px'
+  },
+  touch1: {
+    width: "140px",
+    backgroundColor: "white",
+    padding: "13px",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: "10px",
+    marginLeft: '10px'
+  },
+  text: {
+    marginRight: '80px'
   }
 
 });

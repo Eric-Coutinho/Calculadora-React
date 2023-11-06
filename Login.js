@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { StyleSheet, Text, View, Image, TextInput, Switch, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { UtilsContext } from './context';
 
 export default function Login(props) {

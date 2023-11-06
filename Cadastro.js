@@ -12,9 +12,16 @@ export default function Cadastro(props) {
   const [senha, setSenha] = useState("")
   const [notfy, setNotfy] = useState(false)
 
-  function goToUser(){
-    setUtils({...utils, nome: nome, idade: idade, sexo: sexo, email: email, senha: senha, notfy: notfy})
-    props.navigation.navigate("User")
+  function mySetUtils() {
+    if(utils.nome && utils.idade && utils.sexo && utils.email && utils.senha){
+      setUtils({...utils, nome: [...utils.nome, nome], idade: [...utils.idade, idade], sexo: [...utils.sexo, sexo], email: [...utils.email, email], senha: [...utils.senha, senha], notfy: [...utils.notfy, notfy]})
+      console.log(utils.nome)
+    }
+
+    else
+      setUtils({...utils, nome: [nome], idade: [idade], sexo: [sexo], email: [email], senha: [senha], notfy: [notfy]})
+      console.log(utils.nome)
+      props.navigation.navigate("User")
   }
 
   return (
@@ -132,7 +139,7 @@ export default function Cadastro(props) {
 
         <TouchableOpacity
           style={styles.touch1}
-          onPress={() => goToUser()}
+          onPress={() => mySetUtils()}
         >
           <Text>Cadastrar</Text>
         </TouchableOpacity>
