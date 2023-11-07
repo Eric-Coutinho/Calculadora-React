@@ -3,41 +3,32 @@ import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native
 import { UtilsContext } from './context';
 
 function UserBox(props) {
+
   const { utils, setUtils } = useContext(UtilsContext);
 
-  function deleteUser() {
-    console.log(utils.nome)
-    setUtils({ ...props.utils, nome: null, idade: null, sexo: null, email: null, senha: null, notfy: null })
-  }
-  function showUser() {
-    console.log(utils.nome)
-  }
+    function deleteUser() {
+      setUtils({ ...utils ,  users: utils.users.filter(item => item.nome !== props.users.nome)})
+    }
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>Usuarios </Text>
-      <View style={styles.card}>
-        <View style={styles.text}>
-          <Text>Nome: {props.utils.nome}</Text>
-          <Text>Idade: {props.utils.idade}</Text>
-          <Text>Sexo: {props.utils.sexo}</Text>
-          <Text>Recebe Notificação: {props.utils.notfy == false ? "Não" : "Sim"}</Text>
+    return (
+      <View style={styles.container}>
+        
+        <View style={styles.card}>
+          <View style={styles.text}>
+            <Text>Nome: {props.users.nome}</Text>
+            <Text>Idade: {props.users.idade}</Text>
+            <Text>Sexo: {props.users.sexo}</Text>
+            <Text>Recebe Notificação: {props.users.notfy == false ? "Não" : "Sim"}</Text>
+          </View>
+          <TouchableOpacity
+            style={styles.touch1}
+            onPress={() => deleteUser()}
+          >
+            <Text>Deletar Usuário</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.touch1}
-          onPress={() => deleteUser()}
-        >
-          <Text>Deletar Usuário</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.touch1}
-          onPress={() => showUser()}
-        >
-          <Text>Mostrar Usuário</Text>
-        </TouchableOpacity>
       </View>
-    </View>
-  );
+    );
 }
 
 export default function User(props) {
@@ -45,11 +36,9 @@ export default function User(props) {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={utils}
-        renderItem={({ item }) => <UserBox utils={utils}></UserBox>}
-        keyExtractor={(item) => item}
-      />
+      <Text style={styles.titulo}>Usuarios</Text>
+      {utils.users.map((users, index) => <UserBox key = {index} users = {users}/>)}
+      {/* <UserBox utils={utils}></UserBox> */}
     </View>
 
   );

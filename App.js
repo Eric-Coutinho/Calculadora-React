@@ -10,7 +10,7 @@ import { useContext, useState } from 'react'
 
 export default function App() {
   const Stack = createStackNavigator()
-  const [utils, setUtils] = useState({})
+  const [utils, setUtils] = useState({users:[]})
 
   return (
     <NavigationContainer>
